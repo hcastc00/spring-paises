@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  spring-app:
+    image: hcastc00/spring-paises:latest
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-development:3306/world2
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=helloworld
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_MAX_ACTIVE=20
+      - SPRING_DATASOURCE_MAX_IDLE=10
+      - SPRING_DATASOURCE_MIN_IDLE=2
+      - SPRING_DATASOURCE_MAX_WAIT_MILLIS=10000
+      - SPRING_DATASOURCE_TIME_BETWEEN_EVICTION_RUNS_MILLIS=10000
+      - SPRING_DATASOURCE_VALIDATION_QUERY=SELECT 1
+      - SPRING_DATASOURCE_TEST_ON_BORROW=true
+      - SPRING_DATASOURCE_TEST_ON_RETURN=false
+      - SPRING_DATASOURCE_TEST_WHILE_IDLE=true
+      - SPRING_DATASOURCE_POOL_PREPARED_STATEMENTS=true
+      - SPRING_DATASOURCE_POOL_MIN_EVICTABLE_IDLE_TIME_MILLIS=30000
+      - SPRING_DATASOURCE_POOL_MAX_EVICTABLE_IDLE_TIME_MILLIS=60000
+      - SPRING_DATASOURCE_POOL_MAX_WAIT_MILLIS=10000
+      - SPRING_DATASOURCE_POOL_MAX_IDLE=20
+      - SPRING_DATASOURCE_POOL_MIN_IDLE=2
+      - SPRING_DATASOURCE_POOL_IN
+
+
+  mysql-development:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: world2
+    ports:
+      - "3306:3306"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - C:\Users\hector.castro\Downloads\world.sql:/data/application/init.sql
